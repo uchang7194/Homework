@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>학생데이터</title>
+</head>
+<body>
+    <script>
+
+        var students = [];
+        var students_data = {
+            "name": "",
+            "gender": "",
+            "age": 0,
+            "hobby": "",
+            "school": {
+                "name": "",
+                "grade": 0,
+                "major": "",
+                "minor": "",
+            },
+            "family": {
+                
+            }
+        };
+
+        students.push(students_data);
+        students.push(students_data);
+        students.push(students_data);
+        students.push(students_data);
+        students.push(students_data);
+        students.push(students_data);
+        students.push(students_data);
+        students.push(students_data);
+        students.push(students_data);
+        students.push(students_data);
+
+        students[0].name = "uchang";
+        students[0].gender = "male";
+        students[0].age = 29;
+        students[0].hobby = "watching movie";
+        students[0].school.name = "fastcampus";
+        students[0].school.grade = 4;
+        students[0].school.major = "computer_science";
+        students[0].school.minor = "";
+        students[0].family.father = {};
+        students[0].family.father.name = "kyungnae";
+        students[0].family.father.age = 60;
+        students[0].family.mother = {};
+        students[0].family.mother.name = "geumja";
+        students[0].family.mother.age = 59;
+        students[0].family.sister = {};
+        students[0].family.sister.name = "jihye";
+        students[0].family.sister.age = 33;
+
+        console.log(students[0]);
+        
+        students[1].name = "mike";
+        students[1].gender = "male";
+        students[1].age = 31;
+        students[1].hobby = "watching movie";
+        students[1].school.name = "fastcampus";
+        students[1].school.grade = 2;
+        students[1].school.major = "design";
+        students[1].school.minor = "";
+        students[1].family.father = {};
+        students[1].family.father.name = "mike";
+        students[1].family.father.age = 60;
+        students[1].family.mother = {};
+        students[1].family.mother.name = "ferry";
+        students[1].family.mother.age = 59;
+
+        console.log(students[1]); 
+
+        students[2].name = "jane";
+        students[2].gender = "female";
+        students[2].age = 23;
+        students[2].hobby = "running";
+        students[2].school.name = "fastcampus";
+        students[2].school.grade = 3;
+        students[2].school.major = "teach";
+        students[2].school.minor = "franch";
+        students[2].family.father = {};
+        students[2].family.father.name = "pole";
+        students[2].family.father.age = 60;
+        students[2].family.mother = {};
+        students[2].family.mother.name = "susan";
+        students[2].family.mother.age = 59;
+        students[2].family.brother = {};
+        students[2].family.brother.name = "mark";
+        students[2].family.brother.age = 11;
+
+        console.log(students[2]);
+
+        students[3].name = "pole";
+        students[3].gender = "male";
+        students[3].age = 35;
+        students[3].hobby = "baseball";
+        students[3].school.name = "fastcampus";
+        students[3].school.grade = 1;
+        students[3].school.major = "computer science";
+        students[3].school.minor = "";
+        students[3].family.father = {};
+        students[3].family.father.name = "kim";
+        students[3].family.father.age = 66;
+        students[3].family.mother = {};
+        students[3].family.mother.name = "chi";
+        students[3].family.mother.age = 54;
+        students[3].family.brother = {};
+        students[3].family.brother.name = "baek";
+        students[3].family.brother.age = 21;
+
+        console.log(students[3]);
+
+        students[4].name = "tim";
+        students[4].gender = "male";
+        students[4].age = 29;
+        students[4].hobby = "baseball";
+        students[4].school.name = "fastcampus";
+        students[4].school.grade = 1;
+        students[4].school.major = "computer science";
+        students[4].school.minor = "";
+        students[4].family.father = {};
+        students[4].family.father.name = "tom";
+        students[4].family.father.age = 66;
+        students[4].family.mother = {};
+        students[4].family.mother.name = "susy";
+        students[4].family.mother.age = 54;
+
+        console.log(students[4]);
+
+        students[5].name = "susi";
+        students[5].gender = "female";
+        students[5].age = 20;
+        students[5].hobby = "game";
+        students[5].school.name = "fastcampus";
+        students[5].school.grade = 2;
+        students[5].school.major = "computer science";
+        students[5].school.minor = "";
+        students[5].family.father = {};
+        students[5].family.father.name = "pole";
+        students[5].family.father.age = 56;
+        students[5].family.mother = {};
+        students[5].family.mother.name = "sam";
+        students[5].family.mother.age = 53;
+
+        console.log(students[5]); 
+
+        students[6].name = "someone";
+        students[6].gender = "male";
+        students[6].age = 24;
+        students[6].hobby = "game";
+        students[6].school.name = "fastcampus";
+        students[6].school.grade = 2;
+        students[6].school.major = "computer science";
+        students[6].school.minor = "";
+        students[6].family.father = {};
+        students[6].family.father.name = "pole";
+        students[6].family.father.age = 56;
+        students[6].family.mother = {};
+        students[6].family.mother.name = "sam";
+        students[6].family.mother.age = 53;
+
+        console.log(students[6]);
+
+        students[7].name = "someone2";
+        students[7].gender = "male";
+        students[7].age = 31;
+        students[7].hobby = "game";
+        students[7].school.name = "fastcampus";
+        students[7].school.grade = 2;
+        students[7].school.major = "computer science";
+        students[7].school.minor = "";
+        students[7].family.father = {};
+        students[7].family.father.name = "pole";
+        students[7].family.father.age = 56;
+        students[7].family.mother = {};
+        students[7].family.mother.name = "sam";
+        students[7].family.mother.age = 53;
+
+        console.log(students[7]);
+
+        students[8].name = "someone3";
+        students[8].gender = "female";
+        students[8].age = 31;
+        students[8].hobby = "game";
+        students[8].school.name = "fastcampus";
+        students[8].school.grade = 2;
+        students[8].school.major = "computer science";
+        students[8].school.minor = "";
+        students[8].family.father = {};
+        students[8].family.father.name = "pole";
+        students[8].family.father.age = 56;
+        students[8].family.mother = {};
+        students[8].family.mother.name = "sam";
+        students[8].family.mother.age = 53;
+
+        console.log(students[8]);
+
+        students[9].name = "someone4";
+        students[9].gender = "male";
+        students[9].age = 31;
+        students[9].hobby = "game";
+        students[9].school.name = "fastcampus";
+        students[9].school.grade = 2;
+        students[9].school.major = "computer science";
+        students[9].school.minor = "";
+        students[9].family.father = {};
+        students[9].family.father.name = "pole";
+        students[9].family.father.age = 56;
+        students[9].family.mother = {};
+        students[9].family.mother.name = "sam";
+        students[9].family.mother.age = 53;
+
+        console.log(students[9]);                
+    </script>
+</body>
+</html>
