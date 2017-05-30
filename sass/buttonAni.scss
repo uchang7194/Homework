@@ -1,0 +1,101 @@
+html, body{
+    margin: 0;
+}
+.view{
+    height: 100vh;
+    
+    .container{
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1000px;
+        
+        & > div{
+            float: left;
+            width: 23%;
+            height: 60px;
+            margin-right: 14%;
+            text-align: center;
+            line-height: 60px;
+        }
+        & > div:last-child{
+            margin-right: 0;
+        }
+    }
+}
+
+.fill-btn{
+    position: relative; 
+    overflow: hidden;
+    .fill-elem{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: -100%;
+        background: skyblue;
+        transition: transform 1s; 
+    }
+    &:hover .fill-elem{
+        transform: translateX(100%);
+    }
+}
+
+.bottomBorder-btn{
+    position: relative;
+    span{
+        display: block;
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        width: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: darkblue;
+        transition: all 1s;
+    }
+
+    &:hover .border{
+        width: 100%;
+    }
+}
+
+.border-btn{
+    position: relative;
+    span{
+        display: block;
+        position: absolute;
+        background: darkblue;
+        transition: all 1s;
+    }
+    .top{
+        top: 0;
+        left: 0;
+        height: 2px;
+        width: 0;
+    }
+    .bottom{
+        bottom: 0;
+        right: 0;
+        height: 2px;
+        width: 0;
+    }
+    .left{
+        bottom: 0;
+        left: 0;
+        height: 0;
+        width: 2px;
+    }
+    .right{
+        top: 0;
+        right: 0;
+        height: 0;
+        width: 2px;
+    }
+    &:hover .top, &:hover .bottom{
+        width: 100%;
+    }
+    &:hover .left, &:hover .right{
+        height: 100%;
+    }
+}
