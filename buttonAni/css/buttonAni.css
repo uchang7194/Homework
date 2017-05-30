@@ -30,12 +30,14 @@ html, body {
 .fill-btn {
   position: relative;
   overflow: hidden;
+  border: 2px solid skyblue;
 }
 
 .fill-btn .fill-elem {
   position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
   left: -100%;
   background: skyblue;
   transition: transform 1s;
