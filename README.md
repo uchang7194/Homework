@@ -9,3 +9,6 @@
 
 3. students 
   - [students](https://uchang7194.github.io/Homework/students/)
+
+4. function 연습 
+  - [function 연습](jsFunction/js/function.js)
