@@ -1,0 +1,61 @@
+body {
+    overflow-y: visible;
+    font-size: 10px;
+}
+
+body {
+    margin: 0;
+    font-size: 1.4rem;
+    font-family: "Helvetica Nenu", Helvetica, Arial, Verdana, sans-serif; 
+    line-height: 1.5;
+    background: #fff;
+    color: #000;
+}
+
+.demo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.photo-showcase-container {
+    width: 900px;
+    height: 420px;
+    background: #000;
+    text-align: center;
+}
+
+.photo-showcase-btn, .photo-showcase-closeBtn {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+.photo-showcase-controller {
+    position: fixed;
+    width: 1050px;
+    top: -100px; 
+    left: 50%;
+    transform: translateX(-50%);
+    transition: top 0.8s ease-out;
+}
+.photo-showcase-controller:target{
+    top: 10px;
+}
+
+.photo-showcase-controller ul {
+    width: 100%;
+    list-style: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    clear: both;
+}
+.photo-showcase-controller li {
+    float: left;
+    margin-right: 5px;
+}
+.photo-showcase-controller img {
+    /*아래 여백*/
+    vertical-align: middle;
+}
