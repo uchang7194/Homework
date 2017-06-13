@@ -14,4 +14,4 @@
   - [function 연습](jsFunction/js/function.js)
 
 5. closure 연습
-  - [closure 연습](closure/js/closure.js)
+  - [closure 연습](closure/js/closure.js) 
