@@ -33,7 +33,7 @@ body {
         transition: all 0.8s;
         cursor: pointer;
 
-        &.intro-btn-actived {
+        &.actived {
             background-color: lightcoral;
             // left: calc(100% - 21px);
             transform: translateX(280px);
@@ -84,7 +84,7 @@ body {
         }
     }
 
-    &.input-box-actived {
+    &.actived {
         // display: block;
         visibility: visible;
         opacity: 0.9;
@@ -149,7 +149,7 @@ body {
         }
     }
 
-    &.todoList-actived {
+    &.actived {
         visibility: visible;
         opacity: 0.9;
         transition-delay: 1s;

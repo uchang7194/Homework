@@ -54,7 +54,7 @@ body {
   cursor: pointer;
 }
 
-.todo .intro-btn.intro-btn-actived {
+.todo .intro-btn.actived {
   background-color: lightcoral;
   transform: translateX(280px);
 }
@@ -102,7 +102,7 @@ body {
   background-color: lightsteelblue;
 }
 
-.input-box.input-box-actived {
+.input-box.actived {
   visibility: visible;
   opacity: 0.9;
   transition-delay: 1s;
@@ -167,7 +167,7 @@ body {
   box-shadow: 0 0 5px 2px lightseagreen;
 }
 
-.todoList.todoList-actived {
+.todoList.actived {
   visibility: visible;
   opacity: 0.9;
   transition-delay: 1s;
