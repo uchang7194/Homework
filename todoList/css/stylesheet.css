@@ -1,0 +1,268 @@
+@import url("https://fonts.googleapis.com/css?family=Pangolin");
+.a11y-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  overflow: hidden;
+}
+
+html, body {
+  margin: 0;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.4rem;
+}
+
+body {
+  background-color: darkslateblue;
+}
+
+.todo {
+  position: relative;
+  top: 30px;
+  width: 520px;
+  margin: 0 auto;
+  min-height: 42px;
+}
+
+.todo .intro-btn {
+  position: absolute;
+  z-index: 999;
+  top: 21px;
+  left: 50%;
+  margin-left: -21px;
+  margin-top: -21px;
+  width: 42px;
+  height: 42px;
+  border-radius: 5px;
+  background-color: lightseagreen;
+  font-family: 'Pangolin', sans-serif;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  padding: 0;
+  transition: all 0.8s;
+  cursor: pointer;
+}
+
+.todo .intro-btn.actived {
+  background-color: lightcoral;
+  transform: translateX(280px);
+}
+
+.input-box {
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.8s;
+}
+
+.input-box input[type="text"] {
+  box-sizing: border-box;
+  height: 100%;
+  width: 370px;
+  height: 42px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 0 0 0 30px;
+}
+
+.input-box button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  padding: 0 5px;
+  margin-left: 15px;
+  font-size: 1.6rem;
+  height: 36px;
+  border-radius: 5px;
+  color: #fff;
+  font-family: 'Pangolin', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.input-box button.add-btn {
+  background-color: lightsteelblue;
+  right: 104px;
+}
+
+.input-box button.del-all-btn {
+  right: 20px;
+  background-color: lightsteelblue;
+}
+
+.input-box.actived {
+  visibility: visible;
+  opacity: 0.9;
+  transition-delay: 1s;
+}
+
+.todoList {
+  visibility: hidden;
+  opacity: 0;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 30px;
+  transition: all 0.8s;
+}
+
+.todoList li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.todoList li span {
+  display: block;
+  font-size: 2rem;
+  font-family: 'Pangolin', sans-serif;
+  word-wrap: break-word;
+}
+
+.todoList li:last-child {
+  margin-bottom: 0;
+}
+
+.todoList li button {
+  border: none;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  padding: 0;
+  padding-inline-end: initial;
+  padding-inline-start: initial;
+  background-color: lightsteelblue;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.todoList li .fa {
+  display: block;
+  font-size: 2rem;
+  color: #fff;
+  line-height: 25px;
+}
+
+.todoList li:hover {
+  box-shadow: 0 0 5px 2px lightseagreen;
+}
+
+.todoList.actived {
+  visibility: visible;
+  opacity: 0.9;
+  transition-delay: 1s;
+}
+
+.del_li_list {
+  position: fixed;
+  padding-left: 0;
+  padding-bottom: 50px;
+  top: 30px;
+  right: 10px;
+  width: 300px;
+  min-height: 100px;
+  background-color: #fff;
+  border-radius: 5px;
+  font-family: 'Pangolin', sans-serif;
+}
+
+.del_li_list .title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  color: lightseagreen;
+}
+
+.del_li_list .del-list-del-all-btn {
+  border: none;
+  padding: 0 5px 0 5px;
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  background-color: lightsteelblue;
+  height: 36px;
+  border-radius: 5px;
+  font-family: 'Pangolin', sans-serif;
+  color: #fff;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.removed-list {
+  list-style: none;
+  padding: 5px;
+  overflow-y: scroll;
+  max-height: 60vh;
+}
+
+.removed-list li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.removed-list li span {
+  font-size: 2rem;
+  font-family: 'Pangolin', sans-serif;
+  word-wrap: break-word;
+}
+
+.removed-list li:last-child {
+  margin-bottom: 0;
+}
+
+.removed-list li button {
+  border: none;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  padding: 0;
+  padding-inline-end: initial;
+  padding-inline-start: initial;
+  background-color: lightsteelblue;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.removed-list li .fa {
+  display: block;
+  font-size: 2rem;
+  color: #fff;
+  line-height: 25px;
+}
+
+.removed-list li:hover {
+  box-shadow: 0 0 5px 2px lightseagreen;
+}
+
+/*# sourceMappingURL=stylesheet.css.map */

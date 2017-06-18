@@ -1,0 +1,15 @@
+html, body{
+    margin: 0;
+}
+
+html {
+    font-size: 10px;
+}
+body {
+    font-size: 1.4rem;
+}
+
+.a11y-hidden {
+    @extend %a11y-hidden;
+}
+

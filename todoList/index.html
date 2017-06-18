@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="styesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="todo">
+        <button class="intro-btn">To Do!!</button>
+        <div class="input-box">
+            <div class="group">
+                <label class="a11y-hidden" for="todoInput">할 일</label>
+                <input type="text" name="todoInput" id="todoInput" placeholder="to do?">
+                <button class="add-btn" type="button">Add</button>
+                <button class="del-all-btn" type="button">delete All</button>
+            </div>
+        </div>
+        <ul class="todoList"></ul>
+    </div>
+    <div class="del_li_list">
+        <p class="title">
+            Deleted List
+        </p>
+        <button class="del-list-del-all-btn" type="button">Delete All</button>
+        <ul class="removed-list"></ul>
+    </div>
+    <script src="js/utills.js"></script>
+    <script src="js/todoList.js"></script>
+</body>
+</html>
