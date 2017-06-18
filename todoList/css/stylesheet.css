@@ -209,14 +209,14 @@ body {
   z-index: 999;
 }
 
-.del-list {
+.removed-list {
   list-style: none;
   padding: 5px;
   overflow-y: scroll;
   max-height: 60vh;
 }
 
-.del-list li {
+.removed-list li {
   position: relative;
   margin-bottom: 10px;
   padding-top: 5px;
@@ -227,17 +227,17 @@ body {
   border-radius: 10px;
 }
 
-.del-list li span {
+.removed-list li span {
   font-size: 2rem;
   font-family: 'Pangolin', sans-serif;
   word-wrap: break-word;
 }
 
-.del-list li:last-child {
+.removed-list li:last-child {
   margin-bottom: 0;
 }
 
-.del-list li button {
+.removed-list li button {
   border: none;
   width: 28px;
   height: 28px;
@@ -254,14 +254,14 @@ body {
   text-align: center;
 }
 
-.del-list li .fa {
+.removed-list li .fa {
   display: block;
   font-size: 2rem;
   color: #fff;
   line-height: 25px;
 }
 
-.del-list li:hover {
+.removed-list li:hover {
   box-shadow: 0 0 5px 2px lightseagreen;
 }
 

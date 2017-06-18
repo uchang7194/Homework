@@ -1,5 +1,5 @@
 
-(function(global){
+(function(global, $){
 
     /*=======================================================
     
@@ -10,160 +10,10 @@
     2. addClass 함수를 유틸리티 모듈객체를 만들어서 추가시켜 사용.
     3. 최초 선언되는 Elements들도 객체에 넣어서 사용.
     =========================================================*/
-    
-    
-    var utils = (function(){//IIFE Namespace
 
-        /*==============================
-                  [Validation]
-        ================================*/
-        /*==============================
-        *[validateElement]
-        *@func 
-        *@param1 node - elementNode
-        *@result boolean 
-        *@desc elementNode인지 확인하는 함수
-        *================================*/
-        var validateElement = function(node) {
-            return (node.nodeType === 1) ? true : false;
-        }
-        /*==============================
-        *[validateData]
-        *@func 
-        *@param1 data - data
-        *@param2 type - string
-        *@result boolean
-        *@desc data가 어떤 타입인지 확인하는 함수.
-        *================================*/
-        var validateData = function(data, type) {
-            var temp = Object.prototype.toString.call(data).slice(8, -1).toLowerCase();
-            if(temp === type) { return true; }
-            else { return false; }
-        }
-        /*==============================
-             [Element 생성 추가 삭제]
-        ================================*/
-        /*==============================
-        *[createElement]
-        *@func 
-        *@param1 tag_name - string
-        *@result elementNode
-        *@desc elementNode를 생성하고 반환하는 함수.
-        *================================*/
-        var createElement = function(tag_name) {
-            if( !validateData(name, 'string') ) { throw '문자열이 아닙니다.' }
-            return document.createElement(tag_name);
-        }
-        /*==============================
-        *[createQuerySelector]
-        *@func 
-        *@param1 selector - string
-        *@result elementNode
-        *@desc elementNode를 생성하고 반환하는 함수. 요소가 없으면 null값을 반환
-        *================================*/
-        var createQuerySelector = function(selector) {
-            if( !validateData(name, 'string') ) { throw '문자열이 아닙니다.' }
-            // 요소가 없으면 Null을 반환
-            return document.querySelector(selector);
-        }
-
-        /*==============================
-                   [Attribute]
-        ================================*/
-
-        var getAttribute = function(el, attr) {
-            return el.getAttribute(attr);
-        }
-
-        var setAttribute = function(el, attr, value) {
-            el.setAttribute(attr, value);
-        }
-
-        /*==============================
-                    [Class]
-        ================================*/
-        /*==============================
-        *[hasClass]
-        *@func 
-        *@param1 el - elementNode
-        *@param2 class_name - string
-        *@return boolean
-        *@desc 클래스가 있는지 확인하는 함수
-        *================================*/
-        var hasClass = function(el, class_name) {
-            if( !validateElement(el) ) { throw '엘리먼트 요소가 아닙니다.' }
-            if( !validateData(class_name, 'string') ) { throw '문자열이 아닙니다.'}
-
-            var reg = new RegExp('(^|\\s)' + class_name + '($|\\s)');
-            console.log('hasClass', el, class_name, reg.test(getAttribute(el, 'class')));
-
-            return  ( reg.test(getAttribute(el, 'class')) ) ? true : false;
-        }
-        /*==============================
-        *[addClass]
-        *@func 
-        *@param1 el - elementNode
-        *@param2 value - string
-        *@return none
-        *@desc 클래스를 추가하는 함수
-        *================================*/
-        var addClass = function(el, value) {
-            if( !validateElement(el) ) { throw '엘리먼트 요소가 아닙니다.' }
-            if( !validateData(value, 'string') ) { throw '문자열이 아닙니다.'}
-
-            setAttribute(el, 'class', getAttribute(el, 'class') + ' ' + value);
-        }
-        /*==============================
-        *[removeClass]
-        *@func 
-        *@param1 el - elementNode
-        *@param2 value - string
-        *@return none
-        *@desc 클래스를 제거하는 함수
-        *================================*/
-        var removeClass = function(el, value) {
-            if( !validateElement(el) ) { throw '엘리먼트 요소가 아닙니다.' }
-            if( !validateData(value, 'string') ) { throw '문자열이 아닙니다.'}
-
-            if( !hasClass(el, value) ) { return; }
-            console.log('removeClass ', el, value);
-             setAttribute(el, 'class', getAttribute(el, 'class').replace(value, '').trim());             
-        }
-        /*==============================
-        *[toggleClass]
-        *@func 
-        *@param1 el - elementNode
-        *@param2 class_name - string
-        *@return none
-        *@desc 클래스를 toggle시키는 함수
-        *================================*/             
-        var toggleClass = function(el, class_name) {
-            if( !validateElement(el) ) { throw '엘리먼트 요소가 아닙니다.' }
-            if( !validateData(class_name, 'string') ) { throw '문자열이 아닙니다.'}
-            console.log('toggleClass ', el, class_name);
-
-            if (hasClass(el, class_name)) {
-                removeClass(el, class_name);
-                
-            } else {
-                addClass(el, class_name);
-            }
-        }
-        // 노출 패턴
-        return {
-            createElement: createElement,
-            query: createQuerySelector,
-            getAttr: getAttribute,
-            toggleClass: toggleClass
-        }
-    }());
-
-
-
-    var $ = utils,
-        intro_btn = $.query('.intro-btn'), 
+    var intro_btn = $.query('.intro-btn'), 
         todoList = $.query('.todoList'),
-        class_object_arr = [
+        changed_objects = [
             {
                 el: intro_btn,
                 class: $.getAttr(intro_btn, 'class')
@@ -180,10 +30,9 @@
 
     intro_btn.onclick = function() {
 
-        for(var i = 0, len = class_object_arr.length; i < len; i++) {
-            $.toggleClass(class_object_arr[i].el, 'actived');
+        for(var i = 0, len = changed_objects.length; i < len; i++) {
+            $.toggleClass(changed_objects[i].el, 'actived');
         }
-            
     }
 
     /*=======================================================
@@ -194,6 +43,7 @@
       - 이유는 일단 함수로 만들어 사용하면 깔끔해보임. 그리고 배열로
         사용할 수 있지만 순서를 기억해줘야 한다는 단점이 있어서 객체로
         만들어서 사용한다.
+      => 만들어보니 결국 배열도 사용하게 됨..
     2. elements를 동적으로 생성 삭제 등을 하는 함수들을 정리.
       - 통합적인 유틸리티 함수를 만들어서 다 넣어버릴까??
 
@@ -201,95 +51,101 @@
     1. del-list의 item들을 더블클릭 했을 때 다시 todoList로 추가 시키기
     
     =========================================================*/ 
-    // 동적 생성
-    var add_btn = document.querySelector('.add-btn');
-    var del_all_btn = document.querySelector('.del-all-btn');
-    var input_text = document.querySelector('#todoInput');
-    var del_storage_list = document.querySelector('.del-list');
-
-    console.log(del_storage_list);
-    input_text.onkeypress = function(e) {
-        if(e.keyCode === 13) { 
-            setElements(this);
-            return false; 
-        }
-    }
+    /* ================================
+                [동적 생성]
+    ================================= */
     
-    add_btn.onclick = function() {
-        // createElement
-        if ( input_text.value === '' ) { throw '내용이 없습니다.' }
-        
-        setElements(input_text);
-        
-    }
+    var add_btn = {
+            selector: '.add-btn',
+            event: 'onclick'
+        }, 
+        removeAll_btn = {
+            selector: '.del-all-btn',
+            event: 'onclick'
+        },
+        input = {
+            selector: '#todoInput',
+            event: 'onkeypress'
+        }
+    var removed_list = $.query('.removed-list'); 
+    console.log(removed_list);
+    add_btn = $.createObjAddElement(add_btn);
+    removeAll_btn = $.createObjAddElement(removeAll_btn);
+    input = $.createObjAddElement(input);
 
-    var del_el_arr = [];
+    
+    /* ================================
+                [event 할당]
+    ================================= */
 
-    del_all_btn.onclick = function() {
-        var list_length = todoList.querySelectorAll('li').length;    
-        removeAll(list_length, true);
-    }
-
-    function checkedString(text) {
-        var temp = text.value;
-        if(temp === '' || temp.trim().length === 0) { 
+    $.setEvent(add_btn, function(){
+        console.log(this);
+        setElements.call(undefined, input.el.value);
+    });
+    $.setEvent(removeAll_btn, function(){
+        removeListAndMove(todoList, true);
+    });
+    $.setEvent(input, function(e){
+        if(e.keyCode === 13) { 
+            console.log(this);
+            setElements.call(undefined, input.el.value);
             return false; 
-        } else {
-            return true;
         }
-    }
-    function remove(node) {
-        var ul_class = node.parentNode.getAttribute('class');
+    });
 
-        if(ul_class === 'todoList') {
-            todoList.removeChild(node);
-        } else if(ul_class === 'del-list') {
-            del_storage_list.removeChild(node);
-        }
-    }
-    function removeAll(len, isStored) {
-        isStored = isStored || false;
-
-        for(var i = 0; i < len; i++) {
-            var li_el = document.querySelector('li');
-            del_el_arr.push(li_el);
-            todoList.removeChild(li_el);
-        }
-        console.log(del_el_arr, isStored);
-        if(isStored) {
-            for(var i = 0, l = del_el_arr.length; i < l; i++) {
-                console.log(del_el_arr[i]);
-                del_storage_list.appendChild(del_el_arr[i]);
-            }
-        }
-    }
-    var li_number = 0;
-
-    function setElements(input) {
-        var li = document.createElement('li');
-        var span = document.createElement('span');
-        var del_btn = document.createElement('button');
-        var close_marker = document.createElement('i');
+    function removeListAndMove(parent, isMoved) {
+        isMoved = isMoved || false;
         
-        if(!checkedString(input)) { throw '내용이 없습니다.' }
-
-        var text = document.createTextNode(input.value);
-        input.value = '';
-
-        close_marker.setAttribute('class', 'fa fa-times');
-        close_marker.setAttribute('aria-hidden', 'true');
-        del_btn.setAttribute('class', 'del-btn');
-        li.setAttribute('role-index', li_number++);
-        
-        del_btn.onclick = function() {
-            var parent_li = del_btn.parentNode;
-            remove(parent_li);
+        var storage = $.removeAll(parent);
+        if(isMoved) {
+            console.log('starage.length:', storage.length);
+            for( var i = 0, len = storage.length; i < len; i++ ) {
+                console.log('storage[i]:', storage[i]);
+                $.appendChild(removed_list, storage[i]);
+            } 
         }
-
-        span.appendChild(text); 
-        del_btn.appendChild(close_marker);
-        li.appendChild(span);
-        li.appendChild(del_btn);
-        todoList.appendChild(li);
     }
-}(window));
+
+    var role_index = 0;
+
+    function setElements(text) {
+        var li = $.createElement('li'),
+            span = $.createElement('span'),
+            del_btn = $.createElement('button'),
+            close_marker = $.createElement('i'),
+            del_btn_obj = {
+                selector: '',
+                event: 'onclick',
+                el: del_btn
+            };
+        
+        // textNode 생성
+        var text = $.createTextNode(text);
+        input.el.value = '';
+
+        // attribute 추가
+        $.setAttr(close_marker, 'class', 'fa fa-times');
+        $.setAttr(close_marker, 'aria-hidden', 'true');
+        $.setAttr(del_btn, 'class', 'del-btn');
+        $.setAttr(li, 'role-index', role_index++);
+
+        // del_btn_obj에 selector 속성 추가 
+        del_btn_obj.selector = $.getAttr(del_btn_obj.el, 'class');
+        // event 생성
+        $.setEvent(del_btn_obj, function(){
+
+            var parent = $.parent(del_btn_obj.el, 2),
+                child = $.parent(del_btn_obj.el, 1);
+
+            $.removeChild(parent, child);
+        });
+        
+        
+        // 결합.
+        $.appendChild(span, text);
+        $.appendChild(del_btn, close_marker);
+        $.appendChild(li, span);
+        $.appendChild(li, del_btn);
+        $.appendChild(todoList, li);
+    }
+}(window, window.utills));
