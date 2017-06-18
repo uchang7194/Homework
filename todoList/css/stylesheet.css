@@ -167,10 +167,26 @@ body {
   box-shadow: 0 0 5px 2px lightseagreen;
 }
 
+.todoList li.removed {
+  animation: removed-item-ani 0.8s forwards;
+}
+
 .todoList.actived {
   visibility: visible;
   opacity: 0.9;
   transition-delay: 1s;
+}
+
+@keyframes removed-item-ani {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+    display: none;
+  }
 }
 
 .del_li_list {
@@ -184,6 +200,9 @@ body {
   background-color: #fff;
   border-radius: 5px;
   font-family: 'Pangolin', sans-serif;
+  opacity: 0;
+  display: none;
+  transition: all 0.8s;
 }
 
 .del_li_list .title {
@@ -209,6 +228,11 @@ body {
   z-index: 999;
 }
 
+.del_li_list.actived {
+  display: block;
+  animation: removed-list-ani 0.8s forwards;
+}
+
 .removed-list {
   list-style: none;
   padding: 5px;
@@ -221,7 +245,7 @@ body {
   margin-bottom: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 15px;
+  padding-left: 45px;
   padding-right: 50px;
   background-color: #fff;
   border-radius: 10px;
@@ -254,6 +278,11 @@ body {
   text-align: center;
 }
 
+.removed-list li button.return {
+  left: 10px;
+  background-color: lightsalmon;
+}
+
 .removed-list li .fa {
   display: block;
   font-size: 2rem;
@@ -263,6 +292,24 @@ body {
 
 .removed-list li:hover {
   box-shadow: 0 0 5px 2px lightseagreen;
+}
+
+.removed-list li.removed {
+  animation: removed-item-ani 0.8s forwards;
+}
+
+@keyframes removed-list-ani {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  60% {
+    transform: translateY(20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /*# sourceMappingURL=stylesheet.css.map */

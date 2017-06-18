@@ -25,6 +25,10 @@
             {
                 el: todoList,
                 class: $.getAttr(todoList, 'class')
+            },
+            {
+                el: $.query('.del_li_list'),
+                class: $.getAttr($.query('.del_li_list'), 'class')
             }      
         ];
 
@@ -68,7 +72,6 @@
             event: 'onkeypress'
         }
     var removed_list = $.query('.removed-list'); 
-    console.log(removed_list);
     add_btn = $.createObjAddElement(add_btn);
     removeAll_btn = $.createObjAddElement(removeAll_btn);
     input = $.createObjAddElement(input);
@@ -79,33 +82,78 @@
     ================================= */
 
     $.setEvent(add_btn, function(){
-        console.log(this);
         setElements.call(undefined, input.el.value);
     });
     $.setEvent(removeAll_btn, function(){
-        removeListAndMove(todoList, true);
+        removeList(todoList);
+        moveRemovedList();
     });
     $.setEvent(input, function(e){
         if(e.keyCode === 13) { 
-            console.log(this);
             setElements.call(undefined, input.el.value);
             return false; 
         }
     });
 
-    function removeListAndMove(parent, isMoved) {
-        isMoved = isMoved || false;
-        
-        var storage = $.removeAll(parent);
-        if(isMoved) {
-            console.log('starage.length:', storage.length);
-            for( var i = 0, len = storage.length; i < len; i++ ) {
-                console.log('storage[i]:', storage[i]);
-                $.appendChild(removed_list, storage[i]);
-            } 
-        }
+    /*==============================
+                [function]
+    ================================*/
+
+    // element(todoList) 삭제, removedList에 추가
+    var storage = [];
+
+    // 부모요소의 모든 자식요소들을 제거, storage에 저장하는 함수.
+    function removeAllList(parent) {
+        // 배열에 제거된 자식노드들을 저장.
+        storage = $.removeAll(parent);
     }
 
+    // 정렬, DeleteList로 이동시키는 함수.
+    function moveRemovedList() {
+        // 정렬
+        $.selectionSort(storage);
+        console.log('starage.length:', storage.length);
+        for( var i = 0, len = storage.length; i < len; i++ ) {
+            var element = storage[i];
+
+            $.removeClass(element, 'removed');
+            console.log('element', element);
+            
+            if( $.query('.return', element) ) { 
+                console.log('있어');
+                $.appendChild(removed_list, element);    
+                continue; 
+            }
+            console.log('없어');
+            // 되돌리기 버튼 추가
+            var return_btn = $.createElement('button'),
+                return_marker = $.createElement('i');
+
+            $.setAttr(return_btn, 'class', 'return');
+            $.setAttr(return_btn, 'type', 'button');
+            $.setAttr(return_marker, 'class', 'fa fa-reply');
+            $.setAttr(return_marker, 'aria-hidden', 'true');
+            
+            $.appendChild(return_btn, return_marker);
+            $.appendChild(element, return_btn);
+            $.appendChild(removed_list, element);
+        } 
+    }
+
+    function removeStorageItem(role_index) {
+        for(var i = 0, len = storage.length; i < len; i++) {
+            var item = storage[i];
+            if($.getAttr(item, 'role-index') === role_index) {
+                storage.splice(i, 1);
+            }
+        }
+    }
+    // element(todoList) 삭제시 class 추가
+    function removedItemAddEffect(el, value) {
+        $.addClass(el, value);
+    }
+
+    // element(todoList) 추가
     var role_index = 0;
 
     function setElements(text) {
@@ -127,6 +175,7 @@
         $.setAttr(close_marker, 'class', 'fa fa-times');
         $.setAttr(close_marker, 'aria-hidden', 'true');
         $.setAttr(del_btn, 'class', 'del-btn');
+        $.setAttr(del_btn, 'type', 'button');
         $.setAttr(li, 'role-index', role_index++);
 
         // del_btn_obj에 selector 속성 추가 
@@ -137,7 +186,21 @@
             var parent = $.parent(del_btn_obj.el, 2),
                 child = $.parent(del_btn_obj.el, 1);
 
-            $.removeChild(parent, child);
+            removedItemAddEffect(child, 'removed');
+            setTimeout(function(){
+                // 단일 노드 추가
+                if($.getAttr(parent, 'class') === 'removed-list') {
+                    $.removeChild(parent, child);
+                    removeStorageItem($.getAttr(child, 'role-index'));    
+                } else {
+                    storage.push(child);
+                    // 제거
+                    $.removeChild(parent, child);
+                    // 정렬 및 DeleteList에 추가
+                    moveRemovedList();
+                }
+                
+            }, 800);
         });
         
         
