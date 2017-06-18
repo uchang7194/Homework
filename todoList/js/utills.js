@@ -66,10 +66,12 @@ var utills = (function(global){//IIFE Namespace
     *@return elementNode
     *@desc elementNode를 생성하고 반환하는 함수. 요소가 없으면 null값을 반환
     *================================*/
-    var createQuerySelector = function(selector) {
+    var createQuerySelector = function(selector, parent) {
         if( !validateData(name, 'string') ) { throw '문자열이 아닙니다.' }
         // 요소가 없으면 Null을 반환
-        return document.querySelector(selector);
+        parent = parent || document.body;
+
+        return parent.querySelector(selector);
     }
     /*==============================
     *[createObjAddElement]
@@ -178,6 +180,18 @@ var utills = (function(global){//IIFE Namespace
         return childNode_storage;
     }
     /*==============================
+    *[nextSibling]
+    *@func 
+    *@param1 el - ElementNode
+    *@return ElementNode 
+    *@desc 자신의 앞의 형제노드를 반환하는 함수.
+    *================================*/
+    var nextSibling = function(el) {
+        if( !validateElement(parent) ) { throw '첫번째 요소가 ElementNode가 아닙니다.' }
+
+        return el.nextSibling;
+    }
+    /*==============================
                 [Attribute]
     ================================*/
 
@@ -191,6 +205,9 @@ var utills = (function(global){//IIFE Namespace
     *@desc elementNode의 속성값을 반환시켜주는 함수
     *================================*/
     var getAttribute = function(el, attr) {
+
+        if( !el ) { return null }
+
         return el.getAttribute(attr);
     }
 
@@ -222,7 +239,6 @@ var utills = (function(global){//IIFE Namespace
         if( !validateData(class_name, 'string') ) { throw '문자열이 아닙니다.'}
 
         var reg = new RegExp('(^|\\s)' + class_name + '($|\\s)');
-        console.log('hasClass', el, class_name, reg.test(getAttribute(el, 'class')));
 
         return  ( reg.test(getAttribute(el, 'class')) ) ? true : false;
     }
@@ -253,7 +269,6 @@ var utills = (function(global){//IIFE Namespace
         if( !validateData(value, 'string') ) { throw '문자열이 아닙니다.'}
 
         if( !hasClass(el, value) ) { return; }
-        console.log('removeClass ', el, value);
             setAttribute(el, 'class', getAttribute(el, 'class').replace(value, '').trim());             
     }
     /*==============================
@@ -267,7 +282,6 @@ var utills = (function(global){//IIFE Namespace
     var toggleClass = function(el, class_name) {
         if( !validateElement(el) ) { throw '엘리먼트 요소가 아닙니다.' }
         if( !validateData(class_name, 'string') ) { throw '문자열이 아닙니다.'}
-        console.log('toggleClass ', el, class_name);
 
         if (hasClass(el, class_name)) {
             removeClass(el, class_name);
@@ -307,6 +321,31 @@ var utills = (function(global){//IIFE Namespace
         connectEvent.apply(obj.el, [obj.event, fn]);
     }
 
+    /*==============================
+                 [Sort]
+    ================================*/
+
+    var selectionSort = function(storage) {
+        if( !validateData(storage, 'array') ) { throw 'array 형식이 아닙니다.' }
+
+        for(var i = 0, len = storage.length; i < len; i++) {
+            var index = getAttribute(storage[i], 'role-index');
+            
+            for(var j = i+1; j < len; j++) {
+                var after_index = getAttribute(storage[j], 'role-index'),
+                    temp = null;
+
+                if( after_index && (index > after_index) ) {
+                    temp = storage[j];
+                    storage[j] = storage[i];
+                    storage[i] = temp;
+                }
+            }
+            
+        }
+
+        return storage;
+    }
     // 노출 패턴
     return {
         // 검증
@@ -320,12 +359,17 @@ var utills = (function(global){//IIFE Namespace
         removeChild: removeChild,
         removeAll: removeAll,
         parent: parent,
+        nextSibling: nextSibling,
         // Attribute 
         setAttr: setAttribute,
         getAttr: getAttribute,
         // Class
+        addClass: addClass,
+        removeClass: removeClass,
         toggleClass: toggleClass,
         // Event
-        setEvent: setEvent
+        setEvent: setEvent,
+        // Sort
+        selectionSort: selectionSort
     }
 }(window));

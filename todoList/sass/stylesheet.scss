@@ -147,6 +147,10 @@ body {
         &:hover {
             box-shadow: 0 0 5px 2px lightseagreen;
         }
+        
+        &.removed {
+            animation: removed-item-ani 0.8s forwards;
+        }
     }
 
     &.actived {
@@ -154,8 +158,20 @@ body {
         opacity: 0.9;
         transition-delay: 1s;
     }
+
 }
 
+@keyframes removed-item-ani {
+    0%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100%{
+        transform: translateX(-100%);
+        opacity: 0;
+        display: none;
+    }
+}
 .del_li_list {
     position: fixed;
     padding-left: 0;
@@ -167,6 +183,9 @@ body {
     background-color: #fff;
     border-radius: 5px;
     font-family: 'Pangolin', sans-serif;
+    opacity: 0;
+    display: none;
+    transition: all 0.8s;
     .title {
         text-align: center;
         font-weight: bold;
@@ -189,6 +208,10 @@ body {
         z-index: 999;
 
     }
+    &.actived {
+        display: block;
+        animation: removed-list-ani 0.8s forwards;
+    }
     
 }
 
@@ -197,12 +220,13 @@ body {
     padding: 5px;
     overflow-y: scroll;
     max-height: 60vh;
+
     li {
         position: relative;
         margin-bottom: 10px;
         padding-top: 5px;
         padding-bottom: 5px;
-        padding-left: 15px;
+        padding-left: 45px;
         padding-right: 50px;
         background-color: #fff;
         border-radius: 10px;
@@ -232,6 +256,11 @@ body {
             background-color: lightsteelblue;
             border-radius: 50%;
             text-align: center;
+
+            &.return {
+                left: 10px;
+                background-color: lightsalmon;
+            }
         }
         .fa {
             display: block;
@@ -243,5 +272,23 @@ body {
         &:hover {
             box-shadow: 0 0 5px 2px lightseagreen;
         }
+        
+        &.removed {
+            animation: removed-item-ani 0.8s forwards;
+        }
+    }
+}
+
+@keyframes removed-list-ani {
+    0%{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    60%{
+        transform: translateY(20%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
     }
 }
