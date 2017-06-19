@@ -85,7 +85,7 @@
         setElements.call(undefined, input.el.value);
     });
     $.setEvent(removeAll_btn, function(){
-        removeList(todoList);
+        removeAllList(todoList);
         moveRemovedList();
     });
     $.setEvent(input, function(e){
@@ -112,22 +112,65 @@
     function moveRemovedList() {
         // 정렬
         $.selectionSort(storage);
-        console.log('starage.length:', storage.length);
         for( var i = 0, len = storage.length; i < len; i++ ) {
             var element = storage[i];
 
             $.removeClass(element, 'removed');
-            console.log('element', element);
             
             if( $.query('.return', element) ) { 
-                console.log('있어');
                 $.appendChild(removed_list, element);    
                 continue; 
             }
-            console.log('없어');
+
             // 되돌리기 버튼 추가
             var return_btn = $.createElement('button'),
-                return_marker = $.createElement('i');
+                return_marker = $.createElement('i'),
+                return_btn_obj = {
+                    el: return_btn,
+                    event: 'onclick'
+                };
+            
+            $.setEvent(return_btn_obj, function(){
+                // todoList로 li ElementNode를 이동
+                // storage에 있는 값을 이용해서 role-index 값을 비교해서 
+                var li = $.parent(this, 1),
+                    li_role_index = $.getAttr(li, 'role-index');
+                    element = null;
+
+                for(var i = 0, len = storage.length; i < len; i++) {
+                    var item_role_index = $.getAttr(storage[i], 'role-index');
+                
+                    if( li_role_index === item_role_index ) {
+                        element = storage.splice(i, 1);
+                        console.log('element:', element);
+                        break;
+                    }
+                }
+                
+                $.removeChild(element[0], $.query('.return', element[0]));
+
+                if(todoList.hasChildNodes()) {
+                    var traveled_li = $.query('li', todoList),
+                        traveled_index = 0;
+
+                    do {
+                        traveled_index = Number($.getAttr(traveled_li, 'role-index'));
+                        console.log('traveled_index:', traveled_index);
+                        if( traveled_index > li_role_index ) {
+                            $.insertBefore(todoList, element[0], traveled_li);
+                            break;
+                        } 
+                    } while(traveled_li = $.nextSibling(traveled_li));
+
+                    if(!traveled_li) {
+                        $.appendChild(todoList, element[0]);
+                    }
+                } else {
+                    $.appendChild(todoList, element[0]);
+                }
+                console.log(storage);
+                // storage에 있는 값을 제거    
+            });
 
             $.setAttr(return_btn, 'class', 'return');
             $.setAttr(return_btn, 'type', 'button');
@@ -199,7 +242,6 @@
                     // 정렬 및 DeleteList에 추가
                     moveRemovedList();
                 }
-                
             }, 800);
         });
         

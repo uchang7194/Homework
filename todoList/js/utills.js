@@ -179,6 +179,7 @@ var utills = (function(global){//IIFE Namespace
 
         return childNode_storage;
     }
+
     /*==============================
     *[nextSibling]
     *@func 
@@ -187,9 +188,17 @@ var utills = (function(global){//IIFE Namespace
     *@desc 자신의 앞의 형제노드를 반환하는 함수.
     *================================*/
     var nextSibling = function(el) {
-        if( !validateElement(parent) ) { throw '첫번째 요소가 ElementNode가 아닙니다.' }
+        if( !validateElement(el) ) { throw '첫번째 요소가 ElementNode가 아닙니다.' }
 
         return el.nextSibling;
+    }
+
+    var insertBefore = function(parent, target, ref) {
+        if( !validateElement(parent) ) { throw '첫번째 요소가 ElementNode가 아닙니다.' }
+        if( !validateElement(target) ) { throw '첫번째 요소가 ElementNode가 아닙니다.' }
+        if( !validateElement(ref) ) { throw '첫번째 요소가 ElementNode가 아닙니다.' }
+
+        parent.insertBefore(target, ref);
     }
     /*==============================
                 [Attribute]
@@ -318,6 +327,7 @@ var utills = (function(global){//IIFE Namespace
         if( !validateData(obj.event, 'string') ) {throw '두번째 인자는 문자열이 들어와야 합니다.'}
         if( !validateData(fn, 'function') ) {throw '세번째 인자는 함수가 들어와야 합니다.'}
 
+        
         connectEvent.apply(obj.el, [obj.event, fn]);
     }
 
@@ -325,17 +335,26 @@ var utills = (function(global){//IIFE Namespace
                  [Sort]
     ================================*/
 
+    /*==============================
+    *[selectionSort]
+    *@func 
+    *@param1 storage - array
+    *@return Array 
+    *@desc storage(Array)에 있는 값을 오름차순으로 정렬하는 함수.
+    *================================*/
     var selectionSort = function(storage) {
         if( !validateData(storage, 'array') ) { throw 'array 형식이 아닙니다.' }
 
         for(var i = 0, len = storage.length; i < len; i++) {
             var index = getAttribute(storage[i], 'role-index');
-            
+            index = Number(index);
             for(var j = i+1; j < len; j++) {
                 var after_index = getAttribute(storage[j], 'role-index'),
                     temp = null;
+            
+                after_index = Number(after_index);
 
-                if( after_index && (index > after_index) ) {
+                if( index > after_index ) {
                     temp = storage[j];
                     storage[j] = storage[i];
                     storage[i] = temp;
@@ -360,6 +379,7 @@ var utills = (function(global){//IIFE Namespace
         removeAll: removeAll,
         parent: parent,
         nextSibling: nextSibling,
+        insertBefore: insertBefore,
         // Attribute 
         setAttr: setAttribute,
         getAttr: getAttribute,
