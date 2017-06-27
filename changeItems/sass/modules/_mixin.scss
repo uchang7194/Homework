@@ -1,0 +1,42 @@
+// centering position margin flex table
+// list 초기화
+// button 초기화
+// form 태그 설정
+
+// centering
+// position & margin
+@mixin pos-centering($isTransition: false, $mgl: 0, $mgt: 0) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @if $isTransition == true {
+        margin-left: $mgl;
+        margin-top: $mgt;
+    } @else {
+        transform: translate(-50%, -50%);
+    }
+}
+
+// flex
+@mixin flex-centering{
+    display: flex;
+    justify-content: center;
+    align-content: center; 
+}
+
+// init
+// reset-list 
+@mixin reset-list($isFloat: false){
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    @if $isFloat == true {
+        clear: both;
+    }
+}
+
+@mixin fixed-vertical-centering($width, $height: auto) {
+    margin: 0 auto;
+    width: $width;
+    height: $height;
+}

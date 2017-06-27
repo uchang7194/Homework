@@ -1,0 +1,93 @@
+// --------------------------------------------
+// 타이포그래피 설계(Typography Design)
+// --------------------------------------------
+// 기본 글꼴 사이즈
+$base-font-size: 14px !default;
+// 글줄 사이(행간) 비율
+$leading-scale: 1.5;
+// 글줄 사이(행간) 간격
+$leading: $base-font-size * $leading-scale;
+// --------------------------------------------
+// 그리드 시스템 설계(Grid System Design)
+// --------------------------------------------
+// 그리드 시스템 가이드라인 토글 클래스
+$toggle-classname: 'show-grid';
+// 그리드 시스템 가이드라인 높이
+$guide-height: 1000vh;
+// 컬럼의 총 개수, mobile/ tablet/ desktop
+$desktop-columns: 12;
+$tablet-columns: 8;
+$mobile-columns: 4;
+// 거터 방향
+// before, after, split, no-gutter, inside
+$gutter-position: 'split';
+// 거터 간격
+$desktop-gutter-width: 20px;
+$tablet-gutter-width: $desktop-gutter-width / $desktop-columns * $tablet-columns; 
+$mobile-gutter-width: $desktop-gutter-width / $desktop-columns * $mobile-columns;
+
+$desktop-half-gutter-width: $desktop-gutter-width / 2;
+$tablet-half-gutter-width: $desktop-gutter-width / 2;
+$mobile-half-gutter-width: $desktop-gutter-width / 2;
+// 컬럼 폭, mobile/ tablet/ desktop
+// desktop : (max-width - gutter * 12) / desktop-columns
+$desktop-column-width: (1200px - $desktop-gutter-width * 12) / $desktop-columns;
+// tablet : calc(100% - (gutter * tablet-columns) / tablet-columns)
+$tablet-column-width: calc(100% / #{$tablet-columns} - #{$tablet-gutter-width});
+// mobile : calc(100% - (gutter * mobile-columns) / mobile-columns) 
+$mobile-column-width: calc((100% - #{$mobile-gutter-width} * #{$mobile-columns}) / #{$mobile-columns});
+// 컬럼 가이드 색상
+$column-color: rgba(#fb8989, 0.35);
+
+// 페이지 총 폭의 길이를 구하는 함수
+// 70px * 12 + 20px * 12
+// ($column-width + $gutter-width) * $columns
+// desktop
+$desktop-page-width: ($desktop-column-width + $desktop-gutter-width) * $desktop-columns;
+// tablet
+$tablet-page-width: 100%;
+// mobile
+$mobile-page-width: 100%;
+
+// 컬럼 개수에 따른 폭(width) 구하는 공식
+// = 컬럼_폭 × 컬럼_개수 + 거터_폭(합) * (컬럼_개수 - 1)
+// calc( 70px * $i + (10px * 2) * ($i - 1) )
+@function column-width($viewport, $n) {
+  @if $viewport == mobile {
+
+    @return calc(#{$mobile-column-width} * #{$n} + #{$mobile-gutter-width} * (#{$n} - 1));
+    
+  } @else if $viewport == tablet{
+
+    @return calc(#{$tablet-column-width} * #{$n} + #{$tablet-gutter-width} * (#{$n} - 1));
+
+  } @else {
+
+    @return $desktop-column-width * $n + $desktop-gutter-width * ($n - 1);
+
+  }
+}
+// 옵셋 개수에 따른 마진(margin-left) 구하는 공식
+// = 컬럼_폭 × 컬럼_개수 + (컬럼_폭 + 거터_절반_폭)
+@function offset-width($viewport, $n) {
+  @if $viewport == desktop {
+
+    @return calc(#{column-width($viewport, $n)} + (#{$desktop-gutter-width} + #{$desktop-half-gutter-width}));
+  } @else if $viewport == tablet{
+
+    @return calc(#{column-width($viewport, $n)} + (#{$tablet-gutter-width} + #{$tablet-half-gutter-width}));
+  } @else {
+
+    @return calc(#{column-width($viewport, $n)} + (#{$mobile-gutter-width} + #{$mobile-half-gutter-width}));
+  }
+}
+
+
+
+/**
+ *
+ * header variable settings
+ *
+ */
+
+$baseline-height: 21px;

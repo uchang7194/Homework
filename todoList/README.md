@@ -1,5 +1,6 @@
 ## 정리
 
+### utills.js 파일 구조 
 ### 이슈
 - IE에서는 transition 사용시 calc 함수가 먹히지가 않음
 - 해결방안: transform을 사용

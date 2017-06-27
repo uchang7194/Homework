@@ -1,0 +1,42 @@
+@function single-param($val1: 0, $val2: 0) {
+
+    @if $val1 != 0 {
+        @if $val2 != 0 {
+            @return false;
+        } @else {
+            @return true;
+        }
+    } @else {
+        @if $val1 != 0 {
+            @return false;
+        } @else {
+            @return true;
+        }
+    }
+}
+
+@function isZero($min, $max) {
+    @if $min != 0 {
+        @return min;
+    } @else {
+        @return max;
+    }
+}
+@mixin breakpoint($min: 0, $max: 0) {
+
+    @if single-param($min, $max) == true {
+        @if isZero($min, $max) == min {
+            @media screen and (min-width: $min){
+                @content;
+            }
+        } @else {
+            @media screen and (max-width: $max){
+                @content;
+            }
+        }
+    } @else {
+        @media screen and (min-width: $min) and (max-width: $max){
+            @content;
+        }
+    }
+}

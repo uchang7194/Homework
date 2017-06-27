@@ -71,11 +71,16 @@
             selector: '#todoInput',
             event: 'onkeypress'
         }
+        rl_removedAll_btn = {
+            selector: '.removedAll-btn',
+            event: 'onclick'
+        }
     var removed_list = $.query('.removed-list'); 
     add_btn = $.createObjAddElement(add_btn);
     removeAll_btn = $.createObjAddElement(removeAll_btn);
     input = $.createObjAddElement(input);
-
+    rl_removedAll_btn = $.createObjAddElement(rl_removedAll_btn);
+    console.log(rl_removedAll_btn);
     
     /* ================================
                 [event 할당]
@@ -87,6 +92,10 @@
     $.setEvent(removeAll_btn, function(){
         removeAllList(todoList);
         moveRemovedList();
+    });
+    $.setEvent(rl_removedAll_btn, function(){
+        removeAllList(removed_list);
+        removedAllStorage();
     });
     $.setEvent(input, function(e){
         if(e.keyCode === 13) { 
@@ -104,10 +113,21 @@
 
     // 부모요소의 모든 자식요소들을 제거, storage에 저장하는 함수.
     function removeAllList(parent) {
-        // 배열에 제거된 자식노드들을 저장.
-        storage = $.removeAll(parent);
+        if($.getAttr(parent, 'class') === 'removed-list') {
+            console.log('aaa');
+            $.removeAll(parent);
+        } else {
+            // 배열에 제거된 자식노드들을 저장.
+            storage = $.removeAll(parent);
+        }
     }
-
+    // storage 배열안의 모든 요소를 삭제하는 함수
+    function removedAllStorage() {
+        for(var i = 0, len = storage.length; i < len; i++) {
+            console.log('storage[i]:', storage[i]);
+            storage.pop();
+        }
+    }
     // 정렬, DeleteList로 이동시키는 함수.
     function moveRemovedList() {
         // 정렬
@@ -130,6 +150,7 @@
                     event: 'onclick'
                 };
             
+            // return_btn의 이벤트를 추가
             $.setEvent(return_btn_obj, function(){
                 // todoList로 li ElementNode를 이동
                 // storage에 있는 값을 이용해서 role-index 값을 비교해서 
@@ -146,7 +167,7 @@
                         break;
                     }
                 }
-                
+                console.log('element:', element);
                 $.removeChild(element[0], $.query('.return', element[0]));
 
                 if(todoList.hasChildNodes()) {
@@ -155,7 +176,6 @@
 
                     do {
                         traveled_index = Number($.getAttr(traveled_li, 'role-index'));
-                        console.log('traveled_index:', traveled_index);
                         if( traveled_index > li_role_index ) {
                             $.insertBefore(todoList, element[0], traveled_li);
                             break;
